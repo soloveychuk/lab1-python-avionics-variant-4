@@ -39,8 +39,11 @@ def verify_telemetry_packet(packet: list) -> str:
 
 # Задача 4: Пошук втрати GPS (zip / enumerate)
 def find_gps_loss_moments(time_list: list, sats_list: list) -> list:
-    """
-    За допомогою zip та enumerate знаходить перші 3 моменти часу (time),
-    коли кількість супутників sats < 4.
-    """
-    ...
+    loss_moments = []
+    for index, (time, sats) in enumerate(zip(time_list, sats_list)):
+        if sats < 4:
+            loss_moments.append(time)
+
+            if len(loss_moments) == 3:
+                break
+    return loss_moments
