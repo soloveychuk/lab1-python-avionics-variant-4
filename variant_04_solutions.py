@@ -25,16 +25,17 @@ def check_nozzle_status(data: dict) -> str:
             return f"Сопло {nozzle_id} працює штатно"
         case _:
             return "Некоректні дані"
-
+    
 
 # Задача 3: Перевірка цілісності пакета (for / else)
 def verify_telemetry_packet(packet: list) -> str:
-    """
-    Перевіряє байти пакета. Якщо знайдено 0xFF -> негайно перериває (break)
-    і повертає "Помилка пакета: виявлено 0xFF".
-    Якщо цикл завершився без break -> повертає через else: "Пакет валідний".
-    """
-    ...
+    for byte in packet:
+        if byte == 0xFF:
+            break
+    else:
+        return "Пакет валідний"
+    return "Помилка пакета: виявлено 0xFF"
+
 
 # Задача 4: Пошук втрати GPS (zip / enumerate)
 def find_gps_loss_moments(time_list: list, sats_list: list) -> list:
