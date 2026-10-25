@@ -6,13 +6,13 @@
 
 # Задача 1: Кут входження в атмосферу (if/elif/else)
 def check_entry_angle(gamma: float) -> str:
-    """
-    Оцінює кут входження gamma (градуси):
-    - gamma > -5.5 -> "Рикошет від атмосфери"
-    - gamma < -7.5 -> "Перегрів та руйнування"
-    - -7.5 <= gamma <= -5.5 -> "Вхід успішний"
-    """
-    ...
+    if gamma > -5.5:
+        return "Рикошет від атмосфери"
+    elif gamma < -7.5:
+        return "Перегрів та руйнування"
+    else:
+        return "Вхід успішний"
+
 
 # Задача 2: Статус сопел орієнтації (match-case)
 def check_nozzle_status(data: dict) -> str:
