@@ -6,49 +6,50 @@
 
 # Задача 1: Кут входження в атмосферу (if/elif/else)
 def check_entry_angle(gamma: float) -> str:
-    if gamma > -5.5:
+    if gamma > -5.5: #перевіряємо, чи не є кут входження занадто пологим
         return "Рикошет від атмосфери"
-    elif gamma < -7.5:
+    elif gamma < -7.5: #перевіряємо, чи не є входження занадто крутим
         return "Перегрів та руйнування"
-    else:
+    else: #якщо кут у допустимих межах, вхід успішний
         return "Вхід успішний"
 
 
 # Задача 2: Статус сопел орієнтації (match-case)
 def check_nozzle_status(data: dict) -> str:
-    match data:
-        case {"nozzle_id": nozzle_id, "temp": temp} if temp > 400:
+    match data: #перевіряємо стан сопла за даними словника
+        case {"nozzle_id": nozzle_id, "temp": temp} if temp > 400: #якщо температура більша за 400, сопло перегріте
             return f"Перегрів сопла {nozzle_id}"
-        case {"nozzle_id": nozzle_id, "pressure": pressure} if pressure < 1.2:
+        case {"nozzle_id": nozzle_id, "pressure": pressure} if pressure < 1.2: #якщо тиск менший за 1.2, виявлено витік палива
             return f"Витік палива в соплі {nozzle_id}"
-        case {"nozzle_id": nozzle_id, "temp": temp, "pressure": pressure}:
+        case {"nozzle_id": nozzle_id, "temp": temp, "pressure": pressure}: #якщо попередні умови не виконалися, сопло працює штатно
             return f"Сопло {nozzle_id} працює штатно"
-        case _:
+        case _: #якщо у словнику неправильні дані
             return "Некоректні дані"
     
 
 # Задача 3: Перевірка цілісності пакета (for / else)
 def verify_telemetry_packet(packet: list) -> str:
-    for byte in packet:
-        if byte == 0xFF:
-            break
-    else:
+    for byte in packet: #послідовно перевіряємо кожен байт пакета
+        if byte == 0xFF: #якщо знайдено байт помилки, перериваємо цикл
+            break 
+    else: #якщо цикл завершився без break, то виконується ця частина коду
         return "Пакет валідний"
-    return "Помилка пакета: виявлено 0xFF"
+    return "Помилка пакета: виявлено 0xFF" #повертаємо повідомлення про помилку якщо відбувся break
 
 
 # Задача 4: Пошук втрати GPS (zip / enumerate)
-def find_gps_loss_moments(time_list: list, sats_list: list) -> list:
-    loss_moments = []
+def find_gps_loss_moments(time_list: list, sats_list: list) -> list:  
+    loss_moments = [] #створюємо пустйи список для збереження моментів втрати GPS
+    #об'єднуємо час і кількість супутників, додаючи індекс
     for index, (time, sats) in enumerate(zip(time_list, sats_list)):
-        if sats < 4:
+        if sats < 4: #якщо супутників менше 4, то додаємо відповідний час до списку
             loss_moments.append(time)
 
-            if len(loss_moments) == 3:
+            if len(loss_moments) == 3: #після того як знайшли три моменти припиняємо пошук
                 break
     return loss_moments
 
-
+#перевірки роботи коду
 print("--------------------1--------------------")
 print(check_entry_angle(-6.5))
 print(check_entry_angle(-5.0))
