@@ -45,8 +45,10 @@ def find_gps_loss_moments(time_list: list, sats_list: list) -> list:
         if sats < 4: #якщо супутників менше 4, то додаємо відповідний час до списку
             loss_moments.append(time)
 
-            if len(loss_moments) == 3: #після того як знайшли три моменти припиняємо пошук
+            if len(loss_moments) >= 3: #після того як знайшли три моменти припиняємо пошук
                 break
+    else:
+        print("Зв'язок був більш-менш стабільним")
     return loss_moments
 
 #перевірки роботи коду
@@ -67,7 +69,11 @@ print(verify_telemetry_packet([0x12, 0xFF, 0x56]))
 print("--------------------4--------------------")
 print(find_gps_loss_moments(
     [10, 20, 30, 40, 50, 60],
-    [7, 3, 5, 2, 1, 6]
+    [7, 3, 5, 2, 1, 6] 
+))
+print(find_gps_loss_moments(
+    [10, 20, 30, 40, 50, 60],
+    [7, 5, 5, 4, 1, 6]
 ))
 
 
