@@ -48,7 +48,7 @@ def find_gps_loss_moments(time_list: list, sats_list: list) -> list:
             if len(loss_moments) >= 3: #після того як знайшли три моменти припиняємо пошук
                 break
     else:
-        print("Зв'язок був більш-менш стабільним")
+        return "Зв'язок був більш-менш стабільним"
     return loss_moments
 
 #перевірки роботи коду
